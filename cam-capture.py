@@ -2,12 +2,18 @@ import cv2
 from cvzone.HandTrackingModule import HandDetector
 import numpy as np
 import math
+import time
 
 capture = cv2.VideoCapture(0)
 
 detector = HandDetector(maxHands=1)
 offset = 20
 size = 300
+
+
+path = "img/A"
+counter = 0
+
 
 while True:
     success, img = capture.read()
@@ -49,5 +55,9 @@ while True:
         cv2.imshow("Canvas", canvas)
 
     cv2.imshow("Image", img)
-    cv2.waitKey(1)
+    key = cv2.waitKey(1)
+    if key == ord("s"):
+        counter += 1
+        cv2.imwrite(f'{path}/Image_{time.time()}.png', canvas)
+        print("Saved Images: " + str(counter))
 
