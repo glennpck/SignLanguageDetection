@@ -6,7 +6,7 @@ import time
 
 capture = cv2.VideoCapture(0)
 
-detector = HandDetector(maxHands=1)
+detector = HandDetector(maxHands=1, modelComplexity=0)
 offset = 20
 size = 300
 
