@@ -4,6 +4,7 @@ import numpy as np
 import math
 import time
 import mediapipe as mp
+import pickle
 
 capture = cv2.VideoCapture(0)
 
@@ -23,6 +24,8 @@ counter = 0
 save_counter = 0
 data = []
 labels = []
+label = "A"
+key = ""
 
 
 while True:
@@ -85,11 +88,11 @@ while True:
                     data_aux.append(x)
                     data_aux.append(y)
 
-            save = cv2.waitKey(1)
-            if save == ord('s'):
+            key = cv2.waitKey(1)
+            if key == ord('s'):
                 save_counter += 1
                 data.append(data_aux)
-                labels.append("A")        
+                labels.append(label)        
                 print("Data Saved = " + str(save_counter))    
     
         cv2.imshow("Canvas", canvas_rgb)
@@ -101,6 +104,14 @@ while True:
 
 
     cv2.imshow("Image", img)
+    if key == ord('b'):
+        label = "B"
+    elif key == ord('c'):
+        label = "C"
+    elif key == ord('f'):
+        f = open('data.pickle', 'wb')
+        pickle.dump({'data': data, 'labels': labels}, f)
+        f.close()
 
 print(data)
 print(labels)
