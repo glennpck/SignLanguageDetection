@@ -109,19 +109,12 @@ while True:
     elif key == ord('c'):
         label = "C"
     elif key == ord('f'):
-        f = open('data.pickle', 'wb')
-        pickle.dump({'data': data, 'labels': labels}, f)
-        f.close()
+        break
 
 print(data)
 print(labels)
-
-
-
-    
-    # key = cv2.waitKey(1)
-    # if key == ord("s"):
-    #     counter += 1
-    #     cv2.imwrite(f'{path}/Image_{time.time()}.png', canvas)
-    #     print("Saved Images: " + str(counter))
-
+proceed = input("Proceed? [Y/N]: ")
+if proceed.upper() == "Y":
+    f = open('data.pickle', 'wb')
+    pickle.dump({'data': data, 'labels': labels}, f)
+    f.close()
