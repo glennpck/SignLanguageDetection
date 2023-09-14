@@ -18,8 +18,12 @@ labels_dict = {0 : 'B', 1 : 'D', 2 : 'E', 3 : 'F'}
 
 while True:
     data_aux = []
+    x_ = []
+    y_ = []
 
     ret, frame = cap.read()
+
+    h, w, _ = frame.shape
 
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     
@@ -44,14 +48,24 @@ while True:
                 y = result_landmark.landmark[i].y
                 data_aux.append(x)
                 data_aux.append(y)
+                x_.append(x)
+                y_.append(y)
+
+
+        x1 = int(min(x_) * w) - 10
+        y1 = int(min(y_) * h) - 10
+
+        x2 = int(max(x_) * w) - 10
+        y2 = int(max(y_) * h) - 10
         
         prediction = model.predict([np.asarray(data_aux)])
 
         predicted_character = labels_dict[int(prediction[0])]
 
-        print(predicted_character)
+        
 
-
+        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 0), 4)
+        cv2.putText(frame, predicted_character, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.3, (0, 0, 0), 3, cv2.LINE_AA)
 
     cv2.imshow('frame', frame)
     cv2.waitKey(1)
