@@ -7,4 +7,7 @@ This project applies Python Development and Machine Learning to create a Facecam
 - Stage 3: Model Training
 - Stage 4: Integration of Model into Hand Capture
 
+# Alphabets Learned by Model
+B, D, E, F(Possible to learn more VIA bigger dataset)
+
 
